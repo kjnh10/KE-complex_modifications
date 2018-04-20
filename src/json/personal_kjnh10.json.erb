@@ -11,6 +11,13 @@
             "to": <%= to([["japanese_eisuu"], ["escape"]]) %>
           },
 
+          <%# C-space => Japanese Kana %>
+          {
+            "type": "basic",
+            "from": <%= from("spacebar", ["control"], ["any"]) %>,
+            "to": <%= to([["lang1"]]) %>
+          },
+
           <%# C-: => hyphen %>
           {
             "type": "basic",

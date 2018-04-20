@@ -29,6 +29,25 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ],
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "lang1"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "quote",
             "modifiers": {
               "mandatory": [
