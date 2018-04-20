@@ -3,7 +3,7 @@
 require 'erb'
 require 'json'
 
-def _from(key_code, mandatory_modifiers, optional_modifiers)
+def _from(key_code, mandatory_modifiers, optional_modifiers)# {{{
   data = {}
   data['key_code'] = key_code
 
@@ -19,13 +19,13 @@ def _from(key_code, mandatory_modifiers, optional_modifiers)
     data['modifiers']['optional'] << m
   end
   data
-end
+end# }}}
 
-def from(key_code, mandatory_modifiers, optional_modifiers)
+def from(key_code, mandatory_modifiers, optional_modifiers)# {{{
   JSON.generate(_from(key_code, mandatory_modifiers, optional_modifiers))
-end
+end# }}}
 
-def _to(events)
+def _to(events)# {{{
   data = []
 
   events.each do |e|
@@ -38,14 +38,13 @@ def _to(events)
     data << d
   end
   data
-end
+end# }}}
 
-def to(events)
+def to(events)# {{{
   JSON.generate(_to(events))
-end
+end# }}}
 
-
-def each_key(source_keys_list: :source_keys_list, dest_keys_list: :dest_keys_list, from_mandatory_modifiers: [], from_optional_modifiers: [], to_pre_events: [], to_modifiers: [], to_post_events: [], conditions: [], as_json: false)
+def each_key(source_keys_list: :source_keys_list, dest_keys_list: :dest_keys_list, from_mandatory_modifiers: [], from_optional_modifiers: [], to_pre_events: [], to_modifiers: [], to_post_events: [], conditions: [], as_json: false)# {{{
   data = []
   source_keys_list.each_with_index do |from_key,index|
     to_key = dest_keys_list[index]
@@ -82,9 +81,9 @@ def each_key(source_keys_list: :source_keys_list, dest_keys_list: :dest_keys_lis
   else
     data
   end
-end
+end# }}}
 
-def frontmost_application(type, app_aliases)
+def frontmost_application(type, app_aliases)# {{{
   activity_monitor_bundle_identifiers = [
     '^com\.apple\.ActivityMonitor$',
   ]
@@ -239,15 +238,15 @@ def frontmost_application(type, app_aliases)
                     "bundle_identifiers" => bundle_identifiers,
                   })
   end
-end
+end# }}}
 
-def frontmost_application_if(app_aliases)
+def frontmost_application_if(app_aliases)# {{{
   frontmost_application('frontmost_application_if', app_aliases)
-end
+end# }}}
 
-def frontmost_application_unless(app_aliases)
+def frontmost_application_unless(app_aliases)# {{{
   frontmost_application('frontmost_application_unless', app_aliases)
-end
+end# }}}
 
 template = ERB.new $stdin.read
 puts JSON.pretty_generate(JSON.parse(template.result))

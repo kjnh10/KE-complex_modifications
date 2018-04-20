@@ -28,6 +28,8 @@ for srcfile in src/json/*.json.*; do
     if [ $failed -eq 0 ]; then
       rm -f "$dstfile"
       exit 1
+    else
+      cp $dstfile ~/.config/karabiner/assets/complex_modifications/
     fi
   fi
 done
