@@ -1,31 +1,175 @@
 {
-  "title": "Personal rules (@kjnh10)",
+  "title": "Personal rules (@kjnh10) made by erb",
   "rules": [
     {
-    "description": "Misc setting (rev 1)",
-      "manipulators": [<%#{{{%>
-        <%# C-; => Eisu, Escape %>
-        {
-          "type": "basic",
-          "from": <%= from("semicolon", ["control"], ["caps_lock"]) %>,
-          "to": <%= to([["japanese_eisuu"], ["escape"]]) %>
-        },
+      "description": "Misc setting",<%#{{{%>
+        "manipulators": [
+          <%# C-; => Eisu, Escape %>
+          {
+            "type": "basic",
+            "from": <%= from("semicolon", ["control"], ["caps_lock"]) %>,
+            "to": <%= to([["japanese_eisuu"], ["escape"]]) %>
+          },
 
-        <%# C-: => hyphen %>
-        {
-          "type": "basic",
-          "from": <%= from("quote", ["control"], ["caps_lock"]) %>,
-          "to": <%= to([["hyphen"]]) %>
-        },
+          <%# C-: => hyphen %>
+          {
+            "type": "basic",
+            "from": <%= from("quote", ["control"], ["caps_lock"]) %>,
+            "to": <%= to([["hyphen"]]) %>
+          },
 
-        <%# Caps => Control %>
-        {
-          "type": "basic",
-          "from": <%= from("caps_lock", [], ["any"]) %>,
-          "to": <%= to([["control"]]) %>
-        }
+          <%# Caps => Control for windows like copy%>
+          {
+            "type": "basic",
+            "from": <%= from("caps_lock", [], ["any"]) %>,
+            "to": <%= to([["left_command"]]) %>
+          }
+        ]<%#}}}%>
+    },
 
-      ]<%#}}}%>
+    {
+      "description": "Kana Symbol",<%#{{{%>
+        "manipulators": [
+          <%# make kana behave as modifier %>
+          {
+            "type": "basic",
+            "from": <%= from("japanese_kana", [], ["any"]) %>,
+            "to": [
+              {
+                "set_variable": {
+                  "name": "my_modifier_2",
+                  "value": 1
+                }
+              }
+            ],
+            "to_after_key_up": [
+              {
+                "set_variable": {
+                  "name": "my_modifier_2",
+                  "value": 0
+                }
+              }
+            ],
+            "to_if_alone": [
+              {
+                "key_code": "japanese_kana"
+              }
+            ]
+          }
+
+          <%=
+            conditions = [{ "type"=>"variable_if", "name"=>"my_modifier_2", "value"=>1 }]
+            # symbols which are used with shift modifiers in JIS
+            source_keys_list = [
+              "a", "s", "d", "f", "g", "h", "j", "k", "l",
+              "t", "y", "u", "i", "o"
+            ]
+            dest_keys_list = [
+              "1", "2", "3", "4", "5", "6", "7", "8", "9",
+              "hyphen", "equal_sign", "international3", "close_bracket", "backslash"
+            ]
+            manipulators = each_key(
+                source_keys_list: source_keys_list,
+                dest_keys_list: dest_keys_list,
+                to_modifiers: ["left_shift"],
+                conditions: conditions
+            )
+
+            # symbols which are used without shift modifiers in JIS
+            source_keys_list = [
+              "e", "r", "comma", "period"
+            ]
+            dest_keys_list = [
+              "equal_sign", "international3", "close_bracket", "backslash"
+            ]
+            manipulators += each_key(
+                source_keys_list: source_keys_list,
+                dest_keys_list: dest_keys_list,
+                to_modifiers: [],
+                conditions: conditions
+            )
+
+            manipulators_str = ""
+            manipulators.each do |m|
+              manipulators_str += ", #{JSON.generate(m)}"
+            end
+            manipulators_str
+          %>
+
+
+        ]<%#}}}%>
+    },
+
+    {
+      "description": "Eisu Cursor",<%#{{{%>
+        "manipulators": [
+          <%# make Eisu key behave as modifier %>
+          {
+            "type": "basic",
+            "from": <%= from("japanese_eisuu", [], ["any"]) %>,
+            "to": [
+            {
+              "set_variable": {
+                "name": "my_modifier_1",
+                "value": 1
+              }
+            }
+            ],
+            "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "my_modifier_1",
+                "value": 0
+              }
+            }
+            ],
+            "to_if_alone": [
+              {
+                "key_code": "japanese_eisuu"
+              }
+            ]
+          }
+
+          <%=
+            conditions = [{ "type"=>"variable_if", "name"=>"my_modifier_1", "value"=>1 }]
+            source_keys_list = [
+              "h", "j", "k", "l"
+            ]
+            dest_keys_list = [
+              "left_arrow", "down_arrow", "up_arrow", "right_arrow"
+            ]
+            manipulators = each_key(
+                source_keys_list: source_keys_list,
+                dest_keys_list: dest_keys_list,
+                to_modifiers: [],
+                conditions: conditions
+            )
+
+            manipulators_str = ""
+            manipulators.each do |m|
+              manipulators_str += ", #{JSON.generate(m)}"
+            end
+            manipulators_str
+          %>
+
+
+        ]<%#}}}%>
+    },
+
+    {
+      "description": "SandS",<%#{{{%>
+        "manipulators": [
+          {
+            "type": "basic",
+            "from": <%= from("spacebar", [], ["any"]) %>,
+            "to": <%= to([["left_shift"]]) %>,
+            "to_if_alone": [
+              {
+                "key_code": "spacebar"
+              }
+            ]
+          }
+        ]<%#}}}%>
     }
   ]
 }
