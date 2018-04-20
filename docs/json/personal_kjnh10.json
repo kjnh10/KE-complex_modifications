@@ -1,35 +1,16 @@
 {
-  "title": "Exchange underscore and backslash",
+  "title": "Personal rules (@kjnh10)",
   "rules": [
     {
-      "description": "Exchange underscore and backslash",
+      "description": "Misc setting (rev 1)",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "backslash",
-            "modifiers": {
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "hyphen",
-              "modifiers": [
-                "left_shift"
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "hyphen",
+            "key_code": "semicolon",
             "modifiers": {
               "mandatory": [
-                "shift"
+                "control"
               ],
               "optional": [
                 "caps_lock"
@@ -38,7 +19,29 @@
           },
           "to": [
             {
-              "key_code": "backslash"
+              "key_code": "japanese_eisuu"
+            },
+            {
+              "key_code": "escape"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "quote",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "hyphen"
             }
           ]
         }
