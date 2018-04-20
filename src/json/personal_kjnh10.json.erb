@@ -4,18 +4,27 @@
     {
     "description": "Misc setting (rev 1)",
       "manipulators": [<%#{{{%>
-        <%# C-; => Escape %>
+        <%# C-; => Eisu, Escape %>
         {
           "type": "basic",
           "from": <%= from("semicolon", ["control"], ["caps_lock"]) %>,
           "to": <%= to([["japanese_eisuu"], ["escape"]]) %>
         },
+
         <%# C-: => hyphen %>
         {
           "type": "basic",
           "from": <%= from("quote", ["control"], ["caps_lock"]) %>,
           "to": <%= to([["hyphen"]]) %>
+        },
+
+        <%# Caps => Control %>
+        {
+          "type": "basic",
+          "from": <%= from("caps_lock", [], ["any"]) %>,
+          "to": <%= to([["control"]]) %>
         }
+
       ]<%#}}}%>
     }
   ]
