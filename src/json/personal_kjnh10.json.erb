@@ -25,6 +25,13 @@
             "to": <%= to([["hyphen"]]) %>
           },
 
+          <%# C-h => delete %>
+          {
+            "type": "basic",
+            "from": <%= from("h", ["control"], ["caps_lock"]) %>,
+            "to": <%= to([["delete_or_backspace"]]) %>
+          },
+
           <%# Caps => Control for windows like copy%>
           {
             "type": "basic",
